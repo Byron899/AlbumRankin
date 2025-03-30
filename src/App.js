@@ -5,7 +5,7 @@ function App() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("https://albumbackend-vr81.onrender.com/rank_albums", {
+    fetch("https://albumbackende.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
