@@ -5,7 +5,7 @@ function App() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("https://albumbackende.onrender.com", {
+    fetch("https://albumbackende.onrender.com/albums", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
