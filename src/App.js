@@ -98,7 +98,7 @@ function App() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h1>🎶 Album Ranking App</h1>
+      <h1> Album Ranking App</h1>
 
       <form onSubmit={handleSubmit}>
         <input name="title" value={albumForm.title} onChange={handleAlbumChange} placeholder="Album Title" required />
@@ -113,12 +113,12 @@ function App() {
           </div>
         ))}
         <button type="button" onClick={addSongField}>+ Add Song</button><br /><br />
-        {average && <p>⭐ Avg: <strong>{average.average}/10</strong> ({average.total}/{average.max})</p>}
+        {average && <p> Avg: <strong>{average.average}/10</strong> ({average.total}/{average.max})</p>}
         <button type="submit">{editingId ? "Update" : "Add"} Album</button>
         {editingId && <button type="button" onClick={resetForm}>Cancel Edit</button>}
       </form>
 
-      <h2>📊 Ranked Albums</h2>
+      <h2> Ranked Albums</h2>
       <div>
         <label>Sort by: </label>
         <select value={sortKey} onChange={(e) => setSortKey(e.target.value)}>
@@ -141,8 +141,8 @@ function App() {
               <li key={i}>{s.title} — {s.rating}/10 {s.note && `(${s.note})`}</li>
             ))}
           </ul>
-          <button onClick={() => handleEdit(album)}>✏️ Edit</button>
-          <button onClick={() => handleDelete(album.id)}>🗑️ Delete</button>
+          <button onClick={() => handleEdit(album)}> Edit</button>
+          <button onClick={() => handleDelete(album.id)}> Delete</button>
         </div>
       ))}
     </div>
