@@ -1,49 +1,42 @@
+
 import React, { useEffect, useState } from "react";
 
 function App() {
   const [albums, setAlbums] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://albumbackende.onrender.com/albums", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        albums: [
-          { name: "Blonde", artist: "Frank Ocean" },
-          { name: "DAMN.", artist: "Kendrick Lamar" },
-          { name: "To Pimp a Butterfly", artist: "Kendrick Lamar" },
-        ],
-      }),
-    })
+    fetch("https://albumbackende.onrender.com/albums")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response not ok");
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
       .then((data) => {
-        setAlbums(data.ranked_albums || []);
-        setError("");
+        setAlbums(data);
       })
-      .catch((err) => {
-        setError("Error: " + err.message);
+      .catch((error) => {
+        setError(error.message);
       });
   }, []);
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h1>🎵 Music Album Ranking</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <ul>
-        {albums.map((album, index) => (
-          <li key={index}>
-            #{index + 1}: <strong>{album.name}</strong> by {album.artist}
-          </li>
-        ))}
-      </ul>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1>Music Album Ranking</h1>
+      {error ? (
+        <p style={{ color: "red" }}>Error: {error}</p>
+      ) : albums.length === 0 ? (
+        <p>Loading albums...</p>
+      ) : (
+        <ul>
+          {albums.map((album) => (
+            <li key={album.id}>
+              <strong>{album.title}</strong> by {album.artist} ({album.year}) – Score: {album.score}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
