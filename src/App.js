@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 
 const API_URL = "https://albumranking-backend.onrender.com/albums";
@@ -21,9 +20,13 @@ function App() {
   }, [songs]);
 
   const fetchAlbums = async () => {
-    const res = await fetch(`${API_URL}?sort=${sortKey}&order=${sortOrder}`);
-    const data = await res.json();
-    setAlbums(data);
+    try {
+      const res = await fetch(\`\${API_URL}?sort=\${sortKey}&order=\${sortOrder}\`);
+      const data = await res.json();
+      setAlbums(data);
+    } catch (err) {
+      console.error("Failed to fetch albums", err);
+    }
   };
 
   const handleAlbumChange = (e) => {
@@ -57,19 +60,24 @@ function App() {
 
     const payload = { ...albumForm, songs: filteredSongs };
     const method = editingId ? "PUT" : "POST";
-    const url = editingId ? `${API_URL}/${editingId}` : API_URL;
+    const url = editingId ? \`\${API_URL}/\${editingId}\` : API_URL;
 
-    const res = await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    if (res.ok) {
-      resetForm();
-      fetchAlbums();
-    } else {
-      alert("Error saving album");
+      if (res.ok) {
+        resetForm();
+        fetchAlbums();
+      } else {
+        alert("Error saving album");
+      }
+    } catch (err) {
+      console.error("Submission error", err);
+      alert("Submission failed. Check console for more info.");
     }
   };
 
@@ -93,7 +101,7 @@ function App() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this album?")) return;
-    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    await fetch(\`\${API_URL}/\${id}\`, { method: "DELETE" });
     fetchAlbums();
   };
 
@@ -139,7 +147,7 @@ function App() {
           <p>Avg: {album.average}/10 ({album.total_score}/{album.max_score})</p>
           <ul>
             {album.songs.map((s, i) => (
-              <li key={i}>{s.title} — {s.rating}/10 {s.note && `(${s.note})`}</li>
+              <li key={i}>{s.title} — {s.rating}/10 {s.note && \`(\${s.note})\`}</li>
             ))}
           </ul>
           <button onClick={() => handleEdit(album)}> Edit</button>
