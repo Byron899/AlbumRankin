@@ -97,7 +97,7 @@ function App() {
           <h3>{album.title} by {album.artist}</h3>
           <ul>
             {album.songs.map((s, i) => (
-              <li key={i}>{s.title} — {s.rating}/10 {s.note && \`(\${s.note})\`}</li>
+              <li key={i}>{s.title} — {s.rating}/10 {s.note && `(${s.note})`}</li>
             ))}
           </ul>
         </div>
