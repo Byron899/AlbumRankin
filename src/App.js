@@ -46,7 +46,7 @@ function App() {
     }
     const payload = { ...albumForm, songs: filteredSongs };
     const method = editingId ? "PUT" : "POST";
-    const url = editingId ? \`\${API_URL}/\${editingId}\` : API_URL;
+    const url = editingId ? `${API_URL}/${editingId}` : API_URL;
 
     const res = await fetch(url, {
       method,
