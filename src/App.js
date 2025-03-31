@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 
 const API_URL = "http://localhost:5000/albums";
@@ -70,7 +71,8 @@ function App() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h1>Album Ranking App</h1>
+      <h1> Album Ranking App</h1>
+
       <form onSubmit={handleSubmit}>
         <input name="title" value={albumForm.title} onChange={handleAlbumChange} placeholder="Album Title" required />
         <input name="artist" value={albumForm.artist} onChange={handleAlbumChange} placeholder="Artist" required />
@@ -88,13 +90,14 @@ function App() {
         <button type="submit">{editingId ? "Update" : "Add"} Album</button>
         {editingId && <button type="button" onClick={resetForm}>Cancel Edit</button>}
       </form>
-      <h2>Ranked Albums</h2>
+
+      <h2> Ranked Albums</h2>
       {albums.map(album => (
         <div key={album.id} style={{ borderBottom: "1px solid #ccc", padding: "1rem 0" }}>
           <h3>{album.title} by {album.artist}</h3>
           <ul>
             {album.songs.map((s, i) => (
-              <li key={i}>{s.title} - {s.rating}/10 {s.note && `(${s.note})`}</li>
+              <li key={i}>{s.title} — {s.rating}/10 {s.note && `(${s.note})`}</li>
             ))}
           </ul>
         </div>
